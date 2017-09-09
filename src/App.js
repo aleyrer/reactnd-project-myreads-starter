@@ -64,6 +64,7 @@ class BooksApp extends React.Component {
                 <BookShelf
                   key={bookShelf.key}
                   title={bookShelf.title}
+                  bookshelfs={this.state.bookShelfs}
                 />
               ))}
               </div>
