@@ -4,12 +4,8 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
   static propTypes = {
-    title: PropTypes.string.required,
-    authors: PropTypes.string.required,
-    coverWidth: PropTypes.number.required,
-    coverHeight: PropTypes.number.required,
-    coverImageUrl: PropTypes.string.required,
-    bookshelfs: PropTypes.array.required
+    bookshelfs: PropTypes.array.isRequired,
+    bookData: PropTypes.object.isRequired
   }
 
   render() {
@@ -17,19 +13,19 @@ class Book extends Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: this.props.coverWidth, height: this.props.coverHeight, backgroundImage: 'url('+this.props.coverImageUrl+')' }}></div>
+          <div className="book-cover" style={{ width: 140, height: 200, backgroundRepeat: "no-repeat", backgroundImage: "url("+this.props.bookData.imageLinks.thumbnail+")" }}></div>
           <div className="book-shelf-changer">
             <select>
               <option value="none" disabled>Move to...</option>
-              {this.props.bookshelfs.map((bookshelf)=> (
-                <option value={bookshelf.key}>{bookshelf.title}</option>
+              {this.props.bookshelfs.map((bookshelf, index)=> (
+                <option key={index} value={bookshelf.identifier}>{bookshelf.title}</option>
               ))}
               <option value="none">None</option>
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.title}</div>
-        <div className="book-authors">{this.props.authors}</div>
+        <div className="book-title">{this.props.bookData.title}</div>
+        <div className="book-authors">{this.props.bookData.authors[0]}</div>
       </div>
     )
   }

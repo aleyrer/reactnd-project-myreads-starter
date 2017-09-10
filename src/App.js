@@ -1,5 +1,5 @@
 import React from 'react'
-//import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
 
@@ -15,18 +15,26 @@ class BooksApp extends React.Component {
 
     bookShelfs: [
       {
-        key: "currentlyReading",
+        identifier: "currentlyReading",
         title: "Currently Reading"
       },
       {
-        key: "wantToRead",
+        identifier: "wantToRead",
         title: "Want to read"
       },
       {
-        key: "read",
+        identifier: "read",
         title: "Read"
       }
-    ]
+    ],
+
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({books});
+    })
   }
 
   render() {
@@ -60,10 +68,12 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-              {this.state.bookShelfs.map((bookShelf)=>(
+              {this.state.bookShelfs.map((bookShelf, index)=>(
                 <BookShelf
-                  key={bookShelf.key}
+                  key={bookShelf.identifier}
+                  identifier={bookShelf.identifier}
                   title={bookShelf.title}
+                  books={this.state.books.filter((book) => book.shelf === bookShelf.identifier)}
                   bookshelfs={this.state.bookShelfs}
                 />
               ))}
