@@ -38,8 +38,33 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
+      books = this.fixBookProperties(books);
       this.setState({books});
+    }).catch((error) => {
+      console.log(error);
+      this.setState({ books : []});
     })
+  }
+
+  fixBookProperties = (books) => {
+    if(books && books.length > 0){
+      books.forEach((book, index) => {
+        if(!book.hasOwnProperty('title')){
+          books[index]['title'] = "no title";
+        }
+        if(!book.hasOwnProperty('authors')){
+          books[index]['authors'] = [];
+        }
+        if(!book.hasOwnProperty('imageLinks')){
+          books[index]['authors'] = {'thumbnail':'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'};
+        }
+        if(!book.hasOwnProperty('shelf')){
+          books[index]['shelf'] = "none";
+        }
+      });
+      return books;
+    }
+    return [];
   }
 
   updateBook = (book) => {
@@ -57,9 +82,15 @@ class BooksApp extends React.Component {
     console.log(query);
     BooksAPI.search(query, 10).then((result) => {
       console.log(result);
+      if(!result || result.length === 0) {
+        this.setState({ searchResult : []});
+        return;
+      }
+      result = this.fixBookProperties(result);
       this.setState({ searchResult : result});
     }).catch((error)=>{
       console.log(error);
+      this.setState({ searchResult : []});
     })
   }
 
