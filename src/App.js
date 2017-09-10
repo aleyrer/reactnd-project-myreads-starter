@@ -37,6 +37,18 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBook = (book) => {
+
+    BooksAPI.update(book, book.shelf).then((result)=>{
+      let bookIndex = this.state.books.findIndex(x => x.id === book.id);
+      let booksNew = this.state.books;
+      booksNew[bookIndex] = book;
+      this.setState({books: booksNew});
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -75,6 +87,7 @@ class BooksApp extends React.Component {
                   title={bookShelf.title}
                   books={this.state.books.filter((book) => book.shelf === bookShelf.identifier)}
                   bookshelfs={this.state.bookShelfs}
+                  onUpdateBook={this.updateBook}
                 />
               ))}
               </div>

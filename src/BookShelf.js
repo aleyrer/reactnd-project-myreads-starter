@@ -8,7 +8,8 @@ class BookShelf extends Component {
     identifier: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     bookshelfs: PropTypes.array.isRequired,
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    onUpdateBook: PropTypes.func.isRequired
   }
 
 
@@ -21,7 +22,11 @@ class BookShelf extends Component {
           <ol className="books-grid">
             {this.props.books.map((book, index) => (
                 <li key={index}>
-                  <Book key={book.id} bookData={book} bookshelfs={this.props.bookshelfs} />
+                  <Book
+                    key={book.id}
+                    bookData={book}
+                    bookshelfs={this.props.bookshelfs}
+                    onUpdateBook={this.props.onUpdateBook}/>
                 </li>
               ))}
           </ol>
