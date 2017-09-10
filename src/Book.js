@@ -15,7 +15,7 @@ class Book extends Component {
         <div className="book-top">
           <div className="book-cover" style={{ width: 140, height: 200, backgroundRepeat: "no-repeat", backgroundImage: "url("+this.props.bookData.imageLinks.thumbnail+")" }}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select defaultValue={this.props.bookData.shelf}>
               <option value="none" disabled>Move to...</option>
               {this.props.bookshelfs.map((bookshelf, index)=> (
                 <option key={index} value={bookshelf.identifier}>{bookshelf.title}</option>
