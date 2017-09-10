@@ -18,6 +18,9 @@ class SearchBooks extends Component {
   }
 
   render() {
+
+    const { searchResults, bookshelfs, onUpdateBook} = this.props;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -30,13 +33,13 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.searchResults.map((book, index)=>(
+            {searchResults.map((book, index)=>(
               <li key={index}>
                 <Book
                   key={book.id}
                   bookData={book}
-                  bookshelfs={this.props.bookshelfs}
-                  onUpdateBook={this.props.onUpdateBook}/>
+                  bookshelfs={bookshelfs}
+                  onUpdateBook={onUpdateBook}/>
               </li>
             ))}
           </ol>

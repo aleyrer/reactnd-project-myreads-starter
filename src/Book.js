@@ -15,24 +15,26 @@ class Book extends Component {
 
   render() {
 
+    const { bookshelfs, bookData } = this.props;
+
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 140, height: 200, backgroundRepeat: "no-repeat", backgroundImage: "url("+this.props.bookData.imageLinks.thumbnail+")" }}></div>
+          <div className="book-cover" style={{ width: 140, height: 200, backgroundRepeat: "no-repeat", backgroundImage: "url("+bookData.imageLinks.thumbnail+")" }}></div>
           <div className="book-shelf-changer">
             <select
-              defaultValue={this.props.bookData.shelf}
+              defaultValue={bookData.shelf}
               onChange={this.updateBook}>
               <option value="none" disabled>Move to...</option>
-              {this.props.bookshelfs.map((bookshelf, index)=> (
+              {bookshelfs.map((bookshelf, index)=> (
                 <option key={index} value={bookshelf.identifier}>{bookshelf.title}</option>
               ))}
               <option value="none">None</option>
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.bookData.title}</div>
-        <div className="book-authors">{this.props.bookData.authors.join(", ")}</div>
+        <div className="book-title">{bookData.title}</div>
+        <div className="book-authors">{bookData.authors.join(", ")}</div>
       </div>
     )
   }

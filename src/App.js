@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
         title: "Read"
       }
     ],
-    
+
     books: [],
 
     searchResult: []
@@ -98,6 +98,9 @@ class BooksApp extends React.Component {
   }
 
   render() {
+
+    const { bookShelfs, books, searchResult} = this.state;
+
     return (
       <div className="app">
         <Route exact path="/" render={() => (
@@ -107,13 +110,12 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-              {this.state.bookShelfs.map((bookShelf, index)=>(
+              {bookShelfs.map((bookShelf, index)=>(
                 <BookShelf
                   key={bookShelf.identifier}
-                  identifier={bookShelf.identifier}
                   title={bookShelf.title}
-                  books={this.state.books.filter((book) => book.shelf === bookShelf.identifier)}
-                  bookshelfs={this.state.bookShelfs}
+                  books={books.filter((book) => book.shelf === bookShelf.identifier)}
+                  bookshelfs={bookShelfs}
                   onUpdateBook={this.updateBook}
                 />
               ))}
@@ -126,10 +128,10 @@ class BooksApp extends React.Component {
         )}/>
         <Route path="/create" render={({ history }) => (
           <SearchBooks
-            searchResults={this.state.searchResult}
+            searchResults={searchResult}
             onSearchBooks={this.searchBooks}
             onUpdateBook={this.updateBook}
-            bookshelfs={this.state.bookShelfs}
+            bookshelfs={bookShelfs}
             />
         )}/>
 
