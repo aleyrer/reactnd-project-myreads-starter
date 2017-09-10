@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
         title: "Read"
       }
     ],
-
+    
     books: [],
 
     searchResult: []
@@ -67,12 +67,14 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, book.shelf).then((result)=>{
       let bookIndex = this.state.books.findIndex(x => x.id === book.id);
 
-      if(!bookIndex || bookIndex === -1){
-        this.getAllBooks();
-        return;
-      }
       let booksNew = this.state.books;
-      booksNew[bookIndex] = book;
+
+      if(!bookIndex || bookIndex === -1){
+        booksNew.push(book);
+      }
+      else {
+        booksNew[bookIndex] = book;
+      }
       this.setState({books: booksNew});
     }).catch((error)=>{
       console.log(error);
