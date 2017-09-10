@@ -1,8 +1,10 @@
 import React from 'react'
+import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
 import SearchBooks from './SearchBooks'
+
 
 class BooksApp extends React.Component {
   state = {
@@ -12,7 +14,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
+    //showSearchPage: false,
 
     bookShelfs: [
       {
@@ -41,7 +43,6 @@ class BooksApp extends React.Component {
   }
 
   updateBook = (book) => {
-
     BooksAPI.update(book, book.shelf).then((result)=>{
       let bookIndex = this.state.books.findIndex(x => x.id === book.id);
       let booksNew = this.state.books;
@@ -65,14 +66,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchBooks
-            searchResults={this.state.searchResult}
-            onSearchBooks={this.searchBooks}
-            onUpdateBook={this.updateBook}
-            bookshelfs={this.state.bookShelfs}
-            />
-        ) : (
+        <Route exact path="/" render={() => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -92,10 +86,20 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to="/create">Add a book</Link>
             </div>
           </div>
-        )}
+        )}/>
+        <Route path="/create" render={({ history }) => (
+          <SearchBooks
+            searchResults={this.state.searchResult}
+            onSearchBooks={this.searchBooks}
+            onUpdateBook={this.updateBook}
+            bookshelfs={this.state.bookShelfs}
+            />
+        )}/>
+
+
       </div>
     )
   }
