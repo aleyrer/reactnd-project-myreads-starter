@@ -1,8 +1,8 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookShelf from './BookShelf'
+import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
 
 
@@ -104,27 +104,11 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-              {bookShelfs.map((bookShelf, index)=>(
-                <BookShelf
-                  key={bookShelf.identifier}
-                  title={bookShelf.title}
-                  books={books.filter((book) => book.shelf === bookShelf.identifier)}
-                  bookshelfs={bookShelfs}
-                  onUpdateBook={this.updateBook}
-                />
-              ))}
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/create">Add a book</Link>
-            </div>
-          </div>
+          <ListBooks
+            bookshelfs={bookShelfs}
+            books={books}
+            updateBook={this.updateBook}
+            />
         )}/>
         <Route path="/create" render={({ history }) => (
           <SearchBooks
