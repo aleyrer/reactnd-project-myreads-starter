@@ -20,7 +20,7 @@ class Book extends Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 140, height: 200, backgroundRepeat: "no-repeat", backgroundImage: "url("+bookData.imageLinks.thumbnail+")" }}></div>
+          <div className="book-cover" style={{backgroundImage: "url("+bookData.imageLinks.thumbnail+")"}}></div>
           <div className="book-shelf-changer">
             <select
               defaultValue={bookData.shelf}
