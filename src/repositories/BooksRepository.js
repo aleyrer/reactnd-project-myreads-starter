@@ -4,7 +4,6 @@ import * as BooksHelper from '../utils/BooksHelper'
 export const getBooks = () =>
   BooksAPI.getAll().then((books) => {
     books = BooksHelper.fixBookProperties(books);
-    console.log("call finished");
     return books;
   }).catch((error) => {
     console.log(error);
@@ -37,7 +36,7 @@ export const searchBooks = (query, books) =>
     }
     results = BooksHelper.fixBookProperties(results);
 
-    return results;
+    return BooksHelper.enhanceSearchedBooksDataWithShelfedBooks(results, books);
   }).catch((error)=>{
     console.log(error);
     return [];

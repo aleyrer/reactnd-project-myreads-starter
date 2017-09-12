@@ -1,5 +1,4 @@
 export const fixBookProperties = (books) => {
-  console.log("util start");
   if(books && books.length > 0){
     books.forEach((book, index) => {
       if(!book.hasOwnProperty('title')){
@@ -18,4 +17,16 @@ export const fixBookProperties = (books) => {
     return books;
   }
   return [];
+}
+
+export const enhanceSearchedBooksDataWithShelfedBooks = (results, books) => {
+
+  results.forEach((result, index) => {
+    books.forEach((book) => {
+      if(result.id === book.id){
+        results[index].shelf = book.shelf;
+      }
+    })
+  });
+  return results;
 }
