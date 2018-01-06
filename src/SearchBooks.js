@@ -33,8 +33,8 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {searchResults.map((book, index)=>(
-              <li key={index}>
+            {searchResults.map((book)=>(
+              <li key={book.id}>
                 <Book
                   key={book.id}
                   bookData={book}
