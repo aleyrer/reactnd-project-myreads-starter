@@ -13,15 +13,16 @@ export const getBooks = () =>
 
 export const updateBook = (book, books) =>
   BooksAPI.update(book, book.shelf).then((result)=>{
-    let bookIndex = books.findIndex(x => x.id === book.id);
+    let booksCopy = books.map();
+    let bookIndex = booksCopy.findIndex(x => x.id === book.id);
 
     if(!bookIndex || bookIndex === -1){
-      books.push(book);
+      booksCopy.push(book);
     }
     else {
-      books[bookIndex] = book;
+      booksCopy[bookIndex] = book;
     }
-    return books;
+    return booksCopy;
   }).catch((error)=>{
     console.log(error);
     return [];
