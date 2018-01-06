@@ -8,7 +8,7 @@ export const fixBookProperties = (books) => {
         books[index]['authors'] = [];
       }
       if(!book.hasOwnProperty('imageLinks')){
-        books[index]['authors'] = {'thumbnail':'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'};
+        books[index]['imageLinks'] = {'thumbnail':'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'};
       }
       if(!book.hasOwnProperty('shelf')){
         books[index]['shelf'] = "none";
