@@ -13,7 +13,9 @@ export const getBooks = () =>
 
 export const updateBook = (book, books) =>
   BooksAPI.update(book, book.shelf).then((result)=>{
-    let booksCopy = books.map();
+    let booksCopy = books.map((bookItem) => {
+      return bookItem;
+    });
     let bookIndex = booksCopy.findIndex(x => x.id === book.id);
 
     if(!bookIndex || bookIndex === -1){
